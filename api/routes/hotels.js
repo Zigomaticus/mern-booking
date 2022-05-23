@@ -1,9 +1,12 @@
 import express from "express";
 // Models
 import Hotel from "../models/Hotel.js";
+// Utils
+import { createError } from "../utils/error.js";
 
 const router = express.Router();
 
+// Create
 router.post("/", async (req, res) => {
   const newHotel = new Hotel(req.body);
 
@@ -15,6 +18,7 @@ router.post("/", async (req, res) => {
   }
 });
 
+// Update
 router.put("/:id", async (req, res) => {
   try {
     const updatedHotel = await Hotel.findByIdAndUpdate(
@@ -30,6 +34,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
+// Delete
 router.delete("/:id", async (req, res) => {
   try {
     await Hotel.findByIdAndDelete(req.params.id);
@@ -39,6 +44,7 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
+// Get one
 router.get("/:id", async (req, res) => {
   try {
     const hotel = await Hotel.findById(req.params.id);
@@ -48,12 +54,13 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.get("/", async (req, res) => {
+// Get all
+router.get("/", async (req, res, next) => {
   try {
     const hotels = await Hotel.find();
     res.status(200).json(hotels);
   } catch (error) {
-    return res.status(500).json(error);
+    next(error);
   }
 });
 

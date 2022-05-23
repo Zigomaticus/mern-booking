@@ -30,6 +30,17 @@ app.use("/api/users", userRoute);
 app.use("/api/hotels", hotelRoute);
 app.use("/api/rooms", roomRoute);
 
+app.use((error, req, res, next) => {
+  const errorStatus = error.status || 500;
+  const errorMessage = error.message || "Error!";
+  return res.status(errorStatus).json({
+    success: false,
+    status: errorStatus,
+    message: errorMessage,
+    stack: error.stack,
+  });
+});
+
 app.listen(8800, () => {
   connect();
   console.log("Work!!!");

@@ -1,16 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 // Font awesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBed,
+  faCalendarDays,
   faCar,
+  faPerson,
   faPlane,
   faTaxi,
 } from "@fortawesome/free-solid-svg-icons";
+// Date range
+import { DateRange } from "react-date-range";
+import "react-date-range/dist/styles.css";
+import "react-date-range/dist/theme/default.css";
 // Css
 import "./Header.css";
 
 const Header = () => {
+  const [date, setDate] = useState([
+    {
+      startDate: new Date(),
+      endDate: null,
+      key: "selection",
+    },
+  ]);
+
   return (
     <div className="header">
       <div className="headerContainer">
@@ -42,6 +56,35 @@ const Header = () => {
           with a free Lamabooking account
         </p>
         <button className="headerBtn">Sign in / Register</button>
+        <div className="headerSeacrh">
+          <div className="headerSearchItem">
+            <FontAwesomeIcon icon={faBed} className="headerIcon" />
+            <input
+              type="text"
+              placeholder="Where are you going?"
+              className="headerSearchInput"
+            />
+          </div>
+          <div className="headerSearchItem">
+            <FontAwesomeIcon icon={faCalendarDays} className="headerIcon" />
+            <span className="headerSearchText">date to date</span>
+            <DateRange
+              editableDateInputs={true}
+              onChange={(item) => setDate([item.selection])}
+              moveRangeOnFirstSelection={false}
+              ranges={date}
+            />
+          </div>
+          <div className="headerSearchItem">
+            <FontAwesomeIcon icon={faPerson} className="headerIcon" />
+            <span className="headerSearchText">
+              2 adeults 2 children 1 room
+            </span>
+          </div>
+          <div className="headerSearchItem">
+            <button className="headerBtn">Search</button>
+          </div>
+        </div>
       </div>
     </div>
   );

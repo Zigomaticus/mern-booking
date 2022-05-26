@@ -13,6 +13,7 @@ const List = () => {
   const location = useLocation();
   const [destination, setDestination] = useState(location.state.destination);
   const [date, setDate] = useState(location.state.date);
+  const [openDate, setOpenDate] = useState(false);
   const [options, setOptions] = useState(location.state.options);
 
   return (
@@ -29,16 +30,72 @@ const List = () => {
             </div>
             <div className="lsItem">
               <label htmlFor="">Check-in Date</label>
-              <span>{`${format(date[0].startDate, "MM/dd/yyyy")} to ${format(
-                date[0].endDate,
+              <span onClick={() => setOpenDate(!openDate)}>{`${format(
+                date[0].startDate,
                 "MM/dd/yyyy"
-              )}`}</span>
-              <DateRange
-                onChange={(item) => setDate([item.selection])}
-                minDate={new Date()}
-                ranges={date}
-              />
+              )} to ${format(date[0].endDate, "MM/dd/yyyy")}`}</span>
+              {openDate && (
+                <DateRange
+                  onChange={(item) => setDate([item.selection])}
+                  minDate={new Date()}
+                  ranges={date}
+                />
+              )}
             </div>
+            <div className="lsItem">
+              <label htmlFor="">Options</label>
+              <div className="lsOptions">
+                <div className="lsOptionItem">
+                  <span className="lsOptionText">
+                    Min price <small>per night</small>
+                  </span>
+                  <input type="number" className="lsOptionInput" />
+                </div>
+
+                <div className="lsItem">
+                  <div className="lsOptionItem">
+                    <span className="lsOptionText">
+                      Max price <small>per night</small>
+                    </span>
+                    <input type="number" className="lsOptionInput" />
+                  </div>
+                </div>
+                <div className="lsItem">
+                  <div className="lsOptionItem">
+                    <span className="lsOptionText">Adult</span>
+                    <input
+                      min={1}
+                      type="number"
+                      className="lsOptionInput"
+                      placeholder={options.adult}
+                    />
+                  </div>
+                </div>
+                <div className="lsItem">
+                  <div className="lsOptionItem">
+                    <span className="lsOptionText">Children</span>
+                    <input
+                      min={0}
+                      type="number"
+                      className="lsOptionInput"
+                      placeholder={options.children}
+                    />
+                  </div>
+                </div>
+                <div className="lsItem">
+                  <div className="lsOptionItem">
+                    <span className="lsOptionText">Room</span>
+                    <input
+                      min={1}
+                      type="number"
+                      className="lsOptionInput"
+                      placeholder={options.room}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button>Search</button>
           </div>
           <div className="listResult"></div>
         </div>

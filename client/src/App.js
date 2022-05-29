@@ -10,6 +10,10 @@ function App() {
     console.log("Test");
   }
 
+  function fn() {
+    console.log("Test2");
+  }
+
   return (
     <BrowserRouter>
       <Routes>

@@ -9,9 +9,11 @@ function App() {
   function fn() {
     console.log("Test");
   }
-
-  function fn() {
+  function fn2() {
     console.log("Test2");
+  }
+  function fn3() {
+    console.log("Test3");
   }
 
   return (

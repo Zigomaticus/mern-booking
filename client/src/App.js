@@ -9,6 +9,9 @@ function App() {
   function func() {
     console.log("Hello!");
   }
+  function func2() {
+    console.log("Hello!");
+  }
 
   return (
     <BrowserRouter>

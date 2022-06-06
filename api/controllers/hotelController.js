@@ -57,11 +57,11 @@ export const countByCity = async (req, res, next) => {
   try {
     const list = await Promise.all(
       cities.map((city) => {
-        return Hotel.countDocuments({ city: cities });
+        return Hotel.countDocuments({ city: city });
       })
     );
-    const hotels = await Hotel.find();
-    res.status(200).json(hotels);
+    // const hotels = await Hotel.find();
+    res.status(200).json(list);
   } catch (error) {
     next(error);
   }

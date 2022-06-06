@@ -6,13 +6,6 @@ import Hotel from "./pages/hotel/Hotel";
 import List from "./pages/list/List";
 
 function App() {
-  function func() {
-    console.log("Hello!");
-  }
-  function func2() {
-    console.log("Hello!");
-  }
-
   return (
     <BrowserRouter>
       <Routes>
